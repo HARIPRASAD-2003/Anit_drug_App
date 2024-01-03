@@ -7,18 +7,14 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const handleLogin = () => {
-    // Simple validation for demonstration purposes
     if (!username.trim() || !password.trim()) {
       setError('Please enter both username and password.');
       return;
     }
 
-    // Perform login logic here (e.g., API call, authentication)
-    // For now, we'll just log the username and password to the console
     console.log('Username:', username);
     console.log('Password:', password);
     
-    // Clear previous error
     setError('');
     alert("Login success");
   };
