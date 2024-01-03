@@ -1,95 +1,79 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-
+// Homepage.js
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import SliderComponent from './SliderComponent';
+import LeaderboardComponent from './LeaderBoardComponent';
+import MotivationalQuoteComponent from './MotivationalQuote';
+import RelevantLinksComponent from './ReleventLink';
+import s1 from '../assets/s1.png';
+import s2 from '../assets/s2.png';
+import s3 from '../assets/s3.png';
 const Homepage = ({ navigation }) => {
-  const [buttonColor, setButtonColor] = useState('#3498db');
-  const [counter, setCounter] = useState(0);
-
-  const changeButtonColor = () => {
-    const newColor = buttonColor === '#3498db' ? '#2ecc71' : '#3498db';
-    setButtonColor(newColor);
+  const navigateToDetails = () => {
+    // Replace 'Details' with the desired screen name
+    navigation.navigate('Details');
   };
 
-  const incrementCounter = () => {
-    setCounter(counter + 1);
-  };
+//   const images = [ss,'../assets/ss.png', '../assets/ss.png', '../assets/ss.png', '../assets/ss.png'];
+    const images = [s3, s1, s2];
+
+
+  // Append a unique parameter to each image URL to prevent caching
+//   const imagesWithTimestampQuery = images.map((img) => `${img}?timestamp=${new Date().getTime()}`);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Welcome to Your App</Text>
+    <ScrollView style={styles.container}>
+      <SliderComponent images={images} />
+
+      <View style={styles.gameHeader}>
+        <Text style={styles.gameHeaderText}>Welcome to GameZone</Text>
       </View>
 
-      <View style={styles.card}>
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: buttonColor }]}
-          onPress={changeButtonColor}>
-          <Text style={styles.buttonText}>Change Color</Text>
+      <View style={styles.playButtonContainer}>
+        <TouchableOpacity style={styles.playButton} onPress={navigateToDetails}>
+          <Text style={styles.buttonText}>Play Now</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={incrementCounter}>
-          <Text style={styles.buttonText}>Increment Counter</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.counterText}>Counter: {counter}</Text>
       </View>
 
-      <Image
-        style={styles.image}
-        source={{ uri: 'https://example.com/your-image-url.jpg' }}
-      />
-    </View>
+      <LeaderboardComponent />
+      <MotivationalQuoteComponent />
+      <RelevantLinksComponent />
+    </ScrollView>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1', // Light gray background color
-    paddingHorizontal: 20,
-    paddingTop: 50, // Adjusted padding for a header
+    backgroundColor: '#f0f0f0',
   },
-  header: {
+  gameHeader: {
     marginBottom: 20,
+    padding: 10,
+    backgroundColor: '#3498db',
+    alignItems: 'center',
   },
-  headerText: {
+  gameHeaderText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#3498db', // Blue color for the header
+    color: '#fff',
   },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginBottom: 20,
+  playButtonContainer: {
+    marginTop: 20,
+    alignItems: 'center',
   },
-  button: {
+  playButton: {
     backgroundColor: '#3498db',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold',
-  },
-  counterText: {
     fontSize: 18,
-    textAlign: 'center',
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
+    fontWeight: 'bold',
   },
 });
 
